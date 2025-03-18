@@ -65,7 +65,7 @@ class GamePage extends StatefulWidget{
 
 class _GamePageState extends State<GamePage> {
 
-  bool PageState = false;
+  bool pageState = false;
   double blueCard = 0;
   double redCard = 0;
   int bCount = 0;
@@ -74,16 +74,10 @@ class _GamePageState extends State<GamePage> {
   @override
   Widget build(BuildContext context) {
 
-    if (PageState == false) {
+    if (pageState == false) {
       blueCard = MediaQuery.of(context).size.height / 2;
       redCard = MediaQuery.of(context).size.height / 2;
-      PageState = true;
-    }
-
-    if (blueCard < 35) {
-      print("Red won");
-    } else if ( redCard < 35 ) {
-      print("Blue won");
+      pageState = true;
     }
 
     return MaterialApp(
@@ -96,9 +90,12 @@ class _GamePageState extends State<GamePage> {
               padding: EdgeInsets.zero,
               onPressed: () {
                 setState(() {
-                  bCount = bCount + 10;
-                  blueCard = blueCard + 10;
-                  redCard = redCard - 10;
+                  if (redCard < 55) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => WonPage("Blue won",Colors.blueAccent)));
+                  }
+                  bCount = bCount + 5;
+                  blueCard = blueCard + 5;
+                  redCard = redCard - 5;
                 });
               },
               child: Container(
@@ -111,11 +108,13 @@ class _GamePageState extends State<GamePage> {
                     children: [
                       Expanded(
                         child: Text("PLAYER B", style: TextStyle(
+                          color: Colors.red,
                           fontSize: 25,
                           fontWeight: FontWeight.bold
                         ),),
                       ),
                       Text(bCount.toString(), style: TextStyle(
+                        color: Colors.white,
                         fontSize: 25,
                         fontWeight: FontWeight.bold
                       ),),
@@ -128,9 +127,12 @@ class _GamePageState extends State<GamePage> {
               padding: EdgeInsets.zero,
               onPressed: () {
                 setState(() {
-                  rCount = rCount + 10;
-                  redCard = redCard + 10;
-                  blueCard = blueCard - 10;
+                  if (blueCard < 55) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => WonPage("Red won",Colors.redAccent)));
+                  }
+                  rCount = rCount + 5;
+                  redCard = redCard + 5;
+                  blueCard = blueCard - 5;
                 });
               },
               child: Container(
@@ -144,10 +146,12 @@ class _GamePageState extends State<GamePage> {
                       Expanded(
                         child: Text("PLAYER A", style: TextStyle(
                           fontSize: 25,
+                          color: Colors.blue,
                           fontWeight: FontWeight.bold
                         ),),
                       ),
                       Text(rCount.toString(), style: TextStyle(
+                        color: Colors.white,
                         fontSize: 25,
                         fontWeight: FontWeight.bold
                       ),),
@@ -160,6 +164,65 @@ class _GamePageState extends State<GamePage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+
+
+// ignore: must_be_immutable
+class WonPage extends StatefulWidget {
+
+  String title = "";
+  Color bgColor;
+  WonPage(this.title, this.bgColor, {super.key});
+
+  @override
+  State<WonPage> createState() => _WonPageState();
+}
+
+class _WonPageState extends State<WonPage> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: widget.bgColor,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+                Text(
+                  widget.title,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+          
+                MaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                    });
+                  },
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+                  color: Colors.deepPurpleAccent,
+                  child: Text(
+                  "RESTART",
+                  style: TextStyle(
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                )
+          
+              ],
+            ),
+        ),
+        ),
     );
   }
 }
