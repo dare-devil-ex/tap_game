@@ -90,12 +90,12 @@ class _GamePageState extends State<GamePage> {
               padding: EdgeInsets.zero,
               onPressed: () {
                 setState(() {
-                  if (redCard < 55) {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => WonPage("Blue won",Colors.blueAccent)));
-                  }
                   bCount = bCount + 5;
-                  blueCard = blueCard + 5;
-                  redCard = redCard - 5;
+                  blueCard = blueCard + 15;
+                  redCard = redCard - 15;
+                  if (redCard < 55) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => WonPage(bCount, "Player B won",Colors.blueAccent)));
+                  }
                 });
               },
               child: Container(
@@ -104,6 +104,7 @@ class _GamePageState extends State<GamePage> {
                   color: Colors.blueAccent,
                   padding: EdgeInsets.all(10),
                   child: Row(
+
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
@@ -127,12 +128,12 @@ class _GamePageState extends State<GamePage> {
               padding: EdgeInsets.zero,
               onPressed: () {
                 setState(() {
-                  if (blueCard < 55) {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => WonPage("Red won",Colors.redAccent)));
-                  }
                   rCount = rCount + 5;
-                  redCard = redCard + 5;
-                  blueCard = blueCard - 5;
+                  redCard = redCard + 15;
+                  blueCard = blueCard - 15;
+                  if (blueCard < 55) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => WonPage(rCount, "Player A won",Colors.redAccent)));
+                  }
                 });
               },
               child: Container(
@@ -175,7 +176,8 @@ class WonPage extends StatefulWidget {
 
   String title = "";
   Color bgColor;
-  WonPage(this.title, this.bgColor, {super.key});
+  int score = 0;
+  WonPage(this.score, this.title, this.bgColor, {super.key});
 
   @override
   State<WonPage> createState() => _WonPageState();
@@ -192,11 +194,18 @@ class _WonPageState extends State<WonPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-                Text(
+              Text(widget.score.toString(),
+              style: TextStyle(
+                    color: const Color.fromARGB(255, 35, 255, 116),
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold
+                  ),
+              ),
+              Text(
                   widget.title,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 35,
+                    fontSize:25,
                     fontWeight: FontWeight.bold
                   ),
                 ),

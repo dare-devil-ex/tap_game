@@ -1,6 +1,5 @@
 name: tap_game
-description: "A new Flutter project."
-publish_to: 'none'
+description: "A funny tap tap multi player game"
 version: 0.1.0
 
 environment:
