@@ -91,8 +91,9 @@ class _GamePageState extends State<GamePage> {
               onPressed: () {
                 setState(() {
                   bCount = bCount + 5;
-                  blueCard = blueCard + 15;
-                  redCard = redCard - 15;
+                  rCount = rCount - 2;
+                  blueCard = blueCard + 20;
+                  redCard = redCard - 20;
                   if (redCard < 55) {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => WonPage(bCount, "Player B won",Colors.blueAccent)));
                   }
@@ -129,8 +130,9 @@ class _GamePageState extends State<GamePage> {
               onPressed: () {
                 setState(() {
                   rCount = rCount + 5;
-                  redCard = redCard + 15;
-                  blueCard = blueCard - 15;
+                  bCount = bCount - 2;
+                  redCard = redCard + 20;
+                  blueCard = blueCard - 20;
                   if (blueCard < 55) {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => WonPage(rCount, "Player A won",Colors.redAccent)));
                   }
